@@ -34,7 +34,9 @@ from ..utils import preprocess_nxgraph
 def l_2nd(beta):
     def loss_2nd(y_true, y_pred):
         b_ = K.ones_like(y_true)
-        b_[y_true != 0] = beta
+        betas = K.ones_like(y_true)
+        betas = tf.fill(tf.shape(betas), beta)
+        b_ = tf.where(tf.not_equal(y_true, 0), betas, b_)
         x = K.square((y_true - y_pred) * b_)
         t = K.sum(x, axis=-1, )
         return K.mean(t)
