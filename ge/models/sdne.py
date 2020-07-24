@@ -33,7 +33,7 @@ from ..utils import preprocess_nxgraph
 
 def l_2nd(beta):
     def loss_2nd(y_true, y_pred):
-        b_ = np.ones_like(y_true)
+        b_ = K.ones_like(y_true)
         b_[y_true != 0] = beta
         x = K.square((y_true - y_pred) * b_)
         t = K.sum(x, axis=-1, )
